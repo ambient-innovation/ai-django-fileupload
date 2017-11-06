@@ -1,0 +1,35 @@
+{% load i18n %}
+
+<div>
+    <form id="ai-fileupload" method="post" action="{% url 'upload-new' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row fileupload-buttonbar">
+
+            <!-- Uploader button -->
+            <div class="col-lg-7">
+                <span class="btn btn-success fileinput-button green-btn">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>{% trans "Add file" %}</span>
+                    <input type="file" name="file" multiple>
+                </span>
+                <input id="content_type_id" type="hidden" name="content_type" value="{{ content_type_id }}">
+                <input id="object_id" type="hidden" name="object_id" value="{{ object_id }}">
+                <span class="fileupload-loading"></span>
+            </div>
+
+            <!-- Global progress bar -->
+            <div class="col-lg-5 fileupload-progress fade">
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+
+        </div>
+
+        <!-- Attachments Table -->
+        {% include 'partials/_attachments_table.html' %}
+
+    </form>
+</div>

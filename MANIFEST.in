@@ -1,0 +1,4 @@
+include README.md
+recursive-exclude * *.pyc
+recursive-include fileupload *.py *.html *.js *.cfg *.css
+recursive-include fileupload/static/img *

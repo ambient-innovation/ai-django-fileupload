@@ -1,0 +1,4 @@
+django
+model-mommy
+pytest-cov
+pytest-django
