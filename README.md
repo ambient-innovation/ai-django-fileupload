@@ -5,8 +5,6 @@ The uploaded files are stored through the Attachment model. Attachments could be
 
 Additionally, a list of attachments is rendered along with the uploader button. These attachments have a convenient delete feature.  
 
-# Requirements:
-- Django
 
 # Installation:
 - Add a requirement to your requirements.txt: 
@@ -89,7 +87,7 @@ Additionally, a list of attachments is rendered along with the uploader button. 
 
 # Contribute
 
-- Clone the project locally from https://gitlab.ambient-innovation.com/ai/ai-django-fileupload
+- Clone the project locally
 - Create a new branch for your feature
 - Change the dependency in your requirements.txt to a local (editable) one that points to your local file system:
     ```
@@ -97,7 +95,7 @@ Additionally, a list of attachments is rendered along with the uploader button. 
     ``` 
 - Ensure the code passes the tests
 - Run: python setup.py develop
-- Create a merge request
+- Create a pull request
 
 # Tests
 - Install requirements
