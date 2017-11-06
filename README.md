@@ -94,8 +94,17 @@ Additionally, a list of attachments is rendered along with the uploader button. 
     -e /Users/felix/Documents/workspace/ai-django-fileupload
     ``` 
 - Ensure the code passes the tests
-- Run: python setup.py develop
+- Run: 
+    
+    `python setup.py develop`
+    
 - Create a pull request
+
+# Publish to PyPI
+
+- Run:
+
+    `python setup.py sdist upload`
 
 # Tests
 - Install requirements
