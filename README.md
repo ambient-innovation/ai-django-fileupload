@@ -9,19 +9,15 @@ Additionally, a list of attachments is rendered along with the uploader button. 
 # Installation:
 - Add a requirement to your requirements.txt: 
     
-    `git+https://gitlab.ambient-innovation.com/ai/ai-django-fileupload.git`
+    `ai-django-fileupload`
 
-- Add:
+- Add module to `INSTALLED_APPS`:
 
     `fileupload.apps.FileuploadConfig`
 
-    to `INSTALLED_APPS` in `settings.py`
-
-- Add:
+- Add module's urls to your url file:
 
     `url(r'^upload/', include('fileupload.urls')),`
-
-    to project `urls.py`
     
 - Add static files. They are not included in this package, though a convenient [npm package](https://www.npmjs.com/package/ai-django-fileupload) is provided.  
     
