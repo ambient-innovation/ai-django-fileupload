@@ -1,5 +1,5 @@
 include README.md
-include LICENSE
+include LICENSE.md
 include static/*
 recursive-exclude * *.pyc
 recursive-include fileupload *.py *.html *.js *.cfg *.css
