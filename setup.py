@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ai-django-fileupload",
-    version="0.0.5",
+    version="0.0.6",
     author=u'Ambient Innovation GmbH',
     author_email='info@ambient-innovation.com',
     packages=find_packages(),
