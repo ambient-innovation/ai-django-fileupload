@@ -3,7 +3,9 @@ import mimetypes
 import re
 
 from django.core.urlresolvers import reverse
-from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.conf import settings
+
+from fileupload import constants
 
 
 def order_name(name):
@@ -33,7 +35,10 @@ def serialize(instance, file_attr='file'):
         thumbnailUrl = obj.url
     else:
         # Otherwise we will display a default placeholder image
-        thumbnailUrl = static('img/default-thumbnail.png')
+        if hasattr(settings, 'DEFAULT_THUMBNAIL'):
+            thumbnailUrl = settings.DEFAULT_THUMBNAIL
+        else:
+            thumbnailUrl = constants.DEFAULT_THUMBNAIL
 
     return {
         'url': obj.url,
