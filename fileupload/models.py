@@ -2,10 +2,11 @@
 import os
 import uuid
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 from django.db import models
-
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -21,7 +22,36 @@ def upload_to(instance, file_name):
     return file_dir
 
 
-class Attachment(models.Model):
+class CreatedAtInfo(models.Model):
+    created_at = models.DateTimeField(_(u"Created at"), default=now, db_index=True)
+
+    def save(self, *args, **kwargs):
+        # just a fallback for old data
+        if not self.created_at:
+            self.created_at = now()
+        super(CreatedAtInfo, self).save(*args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+
+class CommonInfo(CreatedAtInfo, models.Model):
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u"Created by"), blank=True, null=True,
+                                   related_name="%(app_label)s_%(class)s_created", on_delete=models.SET_NULL)
+    last_modified_at = models.DateTimeField(_(u"Last modified at"), default=now, db_index=True)
+    last_modified_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u"Last modified by"), blank=True,
+                                         null=True, related_name="%(app_label)s_%(class)s_lastmodified",
+                                         on_delete=models.SET_NULL)
+
+    def save(self, *args, **kwargs):
+        self.last_modified_at = now()
+        super(CommonInfo, self).save(*args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+
+class Attachment(CommonInfo):
     file = models.FileField(_(u"File"), upload_to=upload_to)
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
