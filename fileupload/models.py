@@ -9,41 +9,31 @@ from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
-
-UPLOAD_DIRECTORY = 'media/attachments/'
+from fileupload.constants import UPLOADER_UPLOAD_DIRECTORY
 
 
 def upload_to(instance, file_name):
     file_new_name = "{0}.{1}".format(uuid.uuid4().hex, file_name.split('.')[-1])
-    file_dir = os.path.join(UPLOAD_DIRECTORY, file_new_name)
+    file_dir = os.path.join(UPLOADER_UPLOAD_DIRECTORY, file_new_name)
     while Attachment.objects.filter(file=file_dir):
         upload_to(instance, file_name)
 
     return file_dir
 
 
-class CreatedAtInfo(models.Model):
-    created_at = models.DateTimeField(_(u"Created at"), default=now, db_index=True)
-
-    def save(self, *args, **kwargs):
-        # just a fallback for old data
-        if not self.created_at:
-            self.created_at = now()
-        super(CreatedAtInfo, self).save(*args, **kwargs)
-
-    class Meta:
-        abstract = True
-
-
-class CommonInfo(CreatedAtInfo, models.Model):
+class CommonInfo(models.Model):
+    created_at = models.DateTimeField(_(u"Created at"), default=now, blank=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u"Created by"), blank=True, null=True,
                                    related_name="%(app_label)s_%(class)s_created", on_delete=models.SET_NULL)
-    last_modified_at = models.DateTimeField(_(u"Last modified at"), default=now, db_index=True)
+    last_modified_at = models.DateTimeField(_(u"Last modified at"), default=now, blank=True)
     last_modified_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u"Last modified by"), blank=True,
                                          null=True, related_name="%(app_label)s_%(class)s_lastmodified",
                                          on_delete=models.SET_NULL)
 
     def save(self, *args, **kwargs):
+        if not self.created_at:
+            self.created_at = now()
+
         self.last_modified_at = now()
         super(CommonInfo, self).save(*args, **kwargs)
 
