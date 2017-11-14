@@ -3,13 +3,14 @@ import json
 
 from django.http import HttpResponse
 from django.views.generic import CreateView, DeleteView, ListView
+from fileupload.mixins import CustomAccessMixin
 
 from .models import Attachment
 from .response import JSONResponse, response_mimetype
 from .serialize import serialize
 
 
-class AttachmentCreateView(CreateView):
+class AttachmentCreateView(CustomAccessMixin, CreateView):
     model = Attachment
     fields = "__all__"
 
@@ -27,7 +28,7 @@ class AttachmentCreateView(CreateView):
         return HttpResponse(content=data, status=400, content_type='application/json')
 
 
-class AttachmentDeleteView(DeleteView):
+class AttachmentDeleteView(CustomAccessMixin, DeleteView):
     model = Attachment
 
     def delete(self, request, *args, **kwargs):
@@ -38,7 +39,7 @@ class AttachmentDeleteView(DeleteView):
         return response
 
 
-class AttachmentListView(ListView):
+class AttachmentListView(CustomAccessMixin, ListView):
     model = Attachment
 
     def render_to_response(self, context, **response_kwargs):

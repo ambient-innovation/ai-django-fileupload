@@ -1,6 +1,8 @@
 # encoding: utf-8
 from django.conf.urls import url
+
 from fileupload.views import *
+
 
 urlpatterns = [
 

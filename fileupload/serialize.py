@@ -32,19 +32,19 @@ def serialize(instance, file_attr='file'):
     mimetype = mimetypes.guess_type(obj.path)[0] or 'image/png'
     if re.match(r'image', mimetype):
         # We can only really display the thumbnail, if it is an image
-        thumbnailUrl = obj.url
+        thumbnail_url = obj.url
     else:
         # Otherwise we will display a default placeholder image
-        if hasattr(settings, 'DEFAULT_THUMBNAIL'):
-            thumbnailUrl = settings.DEFAULT_THUMBNAIL
+        if hasattr(settings, 'UPLOADER_DEFAULT_THUMBNAIL'):
+            thumbnail_url = settings.UPLOADER_DEFAULT_THUMBNAIL
         else:
-            thumbnailUrl = constants.DEFAULT_THUMBNAIL
+            thumbnail_url = constants.UPLOADER_DEFAULT_THUMBNAIL
 
     return {
         'url': obj.url,
         'name': order_name(obj.name),
         'type': mimetype,
-        'thumbnailUrl': thumbnailUrl,
+        'thumbnailUrl': thumbnail_url,
         'size': obj.size,
         'deleteUrl': reverse('upload-delete', args=[instance.pk]),
         'deleteType': 'DELETE',

@@ -21,9 +21,25 @@ Additionally, a list of attachments is rendered along with the uploader button. 
     
 - Add static files. They are not included in this package, though a convenient [npm package](https://www.npmjs.com/package/ai-django-fileupload) is provided.  
     
-    `npm install ai-django-fileupload`    
+    `npm install ai-django-fileupload`
    
 - Run migrations
+
+# Settings
+
+## Default thumbnail image
+The uploader comes with a default thumbnail image, in case it couldn't be generated. 
+
+You can set your own one, adding its location to the settings file: 
+
+    UPLOADER_DEFAULT_THUMBNAIL = '/static/img/default-thumbnail.png'
+    
+Otherwise it'd be fetched from "static/node_modules/ai-django-fileupload/img/default-thumbnail.png". You may find useful to copy this image wherever your static content is stored. 
+
+## Login required
+If your uploader needs the user be authenticated, you can enable this restriction adding this to the settings file:
+    
+    UPLOADER_LOGIN_REQUIRED = True
     
 # Usage:
 - Include the upload_file template tag in your template:
