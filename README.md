@@ -130,3 +130,15 @@ If your uploader needs the user be authenticated, you can enable this restrictio
 - Run tests
 
     `pytest`
+
+# Internationalization
+
+1. Activate a virtualenv with django installed
+2. Go to fileupload app
+3. Run
+
+    ```django-admin makemessages -l <language_code>```
+4. Translate the .po file
+5. Run
+
+    ```django-admin compilemessages```
