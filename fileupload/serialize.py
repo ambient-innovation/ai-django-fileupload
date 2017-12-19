@@ -29,7 +29,7 @@ def serialize(instance, file_attr='file'):
 
     """
     obj = getattr(instance, file_attr)
-    mimetype = mimetypes.guess_type(obj.path)[0] or 'image/png'
+    mimetype = mimetypes.guess_type(obj.name)[0] or 'image/png'
     if re.match(r'image', mimetype):
         # We can only really display the thumbnail, if it is an image
         thumbnail_url = obj.url
