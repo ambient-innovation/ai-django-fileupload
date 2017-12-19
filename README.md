@@ -118,6 +118,20 @@ If your uploader needs the user be authenticated, you can enable this restrictio
 
     `python setup.py sdist upload`
 
+If you run into trouble, please create a file in your home directory: ~/.pypirc
+
+```
+[distutils]
+index-servers =
+    pypi
+
+[pypi]
+repository: https://upload.pypi.org/legacy/
+username: 
+password: 
+```
+
+
 # Tests
 - Install requirements
 
